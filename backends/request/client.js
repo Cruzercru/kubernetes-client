@@ -63,6 +63,10 @@ function upgradeRequest (options, cb) {
   const queryParams = qs.stringify(options.qs, { indices: false })
   const wsUrl = urljoin(options.baseUrl, options.uri, `?${queryParams}`)
   const protocol = 'base64.channel.k8s.io'
+  options.headers = {
+    ...options.headers,
+    authorization: `Bearer ${options.auth.bearer}`
+  }
   const ws = new WebSocket(wsUrl, protocol, options)
 
   const messages = []
